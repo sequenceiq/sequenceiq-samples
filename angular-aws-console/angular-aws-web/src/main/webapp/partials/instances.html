@@ -1,0 +1,177 @@
+<div class="row" ng-show="signedIn">
+
+<div class="row">
+    <button type="button" class="btn btn-default" ng-click="signOut()">Sign out</button>
+</div>
+<h2>Instances</h2>
+
+<div class="row">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Owner Id</th>
+            <th>Reservation Id</th>
+            <th>Groups</th>
+            <th>Group Names</th>
+            <th>Instances</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="instance in instances">
+            <td>{{instance.ownerId}}</td>
+            <td>{{instance.reservationId}}</td>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Group Name</th>
+                            <th>Group ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="group in instance.groups">
+                            <td>{{group.groupName}}</td>
+                            <td>{{group.groupId}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <tbody>
+                        <tr ng-repeat="name in instance.groupNames">
+                            <td>{{name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Instance ID</th>
+                            <th>Instance Type</th>
+                            <th>Instance State</th>
+                            <th>Public DNS</th>
+                            <th>Public IP</th>
+                            <th>Launch Time</th>
+                            <th>Key Name</th>
+                            <th>START</th>
+                            <th>STOP</th>
+                            <th>TERMINATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in instance.instances">
+                            <td>{{item.imageId}}</td>
+                            <td>{{item.instanceId}}</td>
+                            <td>{{item.instanceType}}</td>
+                            <td>{{item.state.name}}</td>
+                            <td>{{item.publicDnsName}}</td>
+                            <td>{{item.publicIpAddress}}</td>
+                            <td>{{item.launchTime}}</td>
+                            <td>{{item.keyName}}</td>
+                            <td><button type="submit" ng-click="startInstance(item.instanceId)" class="btn btn-success">Start</button></td>
+                            <td><button type="submit" ng-click="stopInstance(item.instanceId)" class="btn btn-warning">Stop</button></td>
+                            <td><button type="submit" class="btn btn-danger">Terminate</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Launch Configurations</h2>
+
+<div class="row">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Launch Config Name</th>
+            <th>Image ID</th>
+            <th>Instance Type</th>
+            <th>User Date</th>
+            <th>Key Name</th>
+            <th>Security Groups</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="launchConfig in launchConfigs">
+            <td>{{launchConfig.launchConfigurationName}}</td>
+            <td>{{launchConfig.imageId}}</td>
+            <td>{{launchConfig.instanceType}}</td>
+            <td>{{launchConfig.userData}}</td>
+            <td>{{launchConfig.keyName}}</td>
+            <td>{{launchConfig.securityGroups}}</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Auto Scaling Groups</h2>
+
+<div class="row">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Auto Scaling Group Name</th>
+                <th>Launch Config Name</th>
+                <th>Status</th>
+                <th>Zones</th>
+                <th>Min Size</th>
+                <th>Max Size</th>
+                <th>Cool Down</th>
+                <th>Desired Capacity</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="asGroup in asGroups">
+            <form role="form"  ng-model="AutoScalingGroups">
+            <td>{{asGroup.autoScalingGroupName}}</td>
+            <td>{{asGroup.launchConfigurationName}}</td>
+            <td>{{asGroup.status}}</td>
+            <td>{{asGroup.availabilityZone}}</td>
+            <td><input type="text" class="form-control" id="minSizeInput" value="{{asGroup.minSize}}" /></td>
+            <td><input type="text" class="form-control" id="maxSizeInput" value="{{asGroup.maxSize}}" /></td>
+            <td><input type="text" class="form-control" id="coolDownInput" value="{{asGroup.defaultCooldown}}" /></td>
+            <td>{{asGroup.desiredCapacity}}</td>
+            <td><button type="submit" class="btn btn-primary" ng-click="updateAutoScalingGroups(asGroup.autoScalingGroupName)">Update</button></td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Auto Scaling Instances</h2>
+
+<div class="row">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Instance ID</th>
+            <th>Autoscaling Group Name</th>
+            <th>Launch Configuration Name</th>
+            <th>Health Status</th>
+            <th>Availability Zone</th>
+            <th>Lifecycle State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="asInstance in asInstances">
+            <td>{{asInstance.instanceId}}</td>
+            <td>{{asInstance.autoScalingGroupName}}</td>
+            <td>{{asInstance.launchConfigurationName}}</td>
+            <td>{{asInstance.healthStatus}}</td>
+            <td>{{asInstance.availabilityZone}}</td>
+            <td>{{asInstance.lifecycleState}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</div>

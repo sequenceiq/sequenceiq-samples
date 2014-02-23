@@ -1,0 +1,14 @@
+#!/bin/bash
+
+yum -y install nginx;
+
+mkdir -p /marci/trafikmutyi;
+
+cd /marci/trafikmutyi;
+
+wget https://s3.amazonaws.com/marci-trafik/nginx.conf;
+mv nginx.conf /etc/nginx/nginx.conf;
+
+wget https://s3.amazonaws.com/marci-trafik/index.html;
+
+service nginx start;

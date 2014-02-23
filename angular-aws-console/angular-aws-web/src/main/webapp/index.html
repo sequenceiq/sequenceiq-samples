@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" ng-app="awsApp">
+<head>
+    <meta charset="utf-8">
+    <title>angular-aws-console</title>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <script src="lib/bootstrap.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+    <script src="lib/angular-resource.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+</head>
+
+<body class="bs-docs-home" style="" data-twttr-rendered="true" ng-controller="AwsConsoleController">
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">Aws Angular Console</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+            	<li><a href="#">Instances</a></li>
+            	<li><a href="#/security">Network and Security</a></li>
+                <li><a href="#/create/instance">Create Instance</a></li>
+                <li><a href="#/create/autscalinggroup">Create AutoScaling Group</a></li>
+                <li><a href="#/list/spotprices">List Spot Prices</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main class="bs-masthead" id="content" role="main">
+<div style="width: 90%;margin-left: auto;margin-right: auto;">
+
+<div class="row" style="height: 100px;"></div>
+
+<div class="row" ng-hide="signedIn">
+    <form class="form-horizontal" role="form" ng-submit="signIn()">
+        <div class="form-group">
+            <label for="inputAwsAccessKey" class="col-sm-2 control-label">AWS Access Key</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputAwsAccessKey" placeholder="AWS Access Key"
+                       ng-model="accessKey">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAwsSecretKey" class="col-sm-2 control-label">AWS Secret Key</label>
+
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputAwsSecretKey" placeholder="AWS Secret Key"
+                       ng-model="secretKey">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Sign in</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="view-container">
+    <div ng-view class="view-frame"></div>
+</div>
+
+
+</div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<div class="row" ng-show="signedIn">
+
+    <div class="row">
+        <button type="button" class="btn btn-default" ng-click="signOut()">Sign out</button>
+    </div>
+    <form>
+        <div class="row" ng-model="AutoScalingGroups">
+            <div class="container">
+                <h2>Create AutoScalingGroup</h2>
+                <div class="highlight">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="nameInput">Name:</label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxSizeInput">Max Size:</label>
+                            <input type="text" class="form-control" id="maxSizeInput" placeholder="max size">
+                        </div>
+                        <div class="form-group">
+                            <label for="minSizeInput">Min Size:</label>
+                            <input type="text" class="form-control" id="minSizeInput" placeholder="min size">
+                        </div>
+                        <div class="form-group">
+                            <label for="coolDownInput">Cool Down:</label>
+                            <input type="text" class="form-control" id="coolDownInput" placeholder="cool down">
+                        </div>
+                        <div class="form-group">
+                            <label for="launchConfigNameInput">Launch Config Name:</label>
+                            <input type="text" class="form-control" id="launchConfigNameInput" placeholder="launch config name">
+                        </div>
+                        <div class="form-group">
+                            <label for="launchConfigNameInput">Availability Zones:</label>
+                            <input type="text" class="form-control" id="availabilityZonesInput" placeholder="zones">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="createAutoScalingGroups()">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

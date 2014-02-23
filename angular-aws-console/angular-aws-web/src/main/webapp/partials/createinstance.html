@@ -1,0 +1,34 @@
+<div class="row" ng-show="signedIn">
+
+    <div class="row">
+        <button type="button" class="btn btn-default" ng-click="signOut()">Sign out</button>
+    </div>
+    <form>
+        <div class="row" ng-model="Instances">
+            <div class="container">
+                <h2>Create Instance</h2>
+                <div class="highlight">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="amiIdInput">ami Id:</label>
+                            <input type="text" class="form-control" id="amiIdInput" placeholder="ami id">
+                        </div>
+                        <div class="form-group">
+                            <label for="sshKeyInput">Ssh Key:</label>
+                            <input type="text" class="form-control" id="sshKeyInput" placeholder="ssh key">
+                        </div>
+                        <div class="form-group">
+                            <label for="securityGroupInput">Security Group Name:</label>
+                            <input type="text" class="form-control" id="securityGroupInput" placeholder="security group name">
+                        </div>
+                        <div class="form-group">
+                            <label for="gistInput">Gist Url:</label>
+                            <input type="text" class="form-control" id="gistInput" placeholder="gist url">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="runInstance()">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

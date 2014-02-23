@@ -1,0 +1,15 @@
+auto-scaling from CLI
+
+aws autoscaling create-launch-configuration --launch-configuration-name marci-launch-config --image-id ami-d03ea1e0 --instance-type t1.micro --key-name marci-keypair --security-groups marci-security-group
+
+aws autoscaling describe-launch-configurations
+
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name marci-auto-scaling-group --launch-configuration-name marci-launch-config --min-size 1 --max-size 3 --desired-capacity 1 --availability-zones us-west-2b
+
+aws autoscaling describe-auto-scaling-groups
+
+update-auto-scaling-group --auto-scaling-group-name marci-auto-scaling-group --min-size 0 --max-size 0 //terminates all instances in an auto-scaling-group
+
+//terminate-instance-in-auto-scaling-group --instance-id i-29cdab1f --should-decrement-desired-capacity
+
+ aws autoscaling delete-auto-scaling-group --auto-scaling-group-name marci-auto-scaling-group
