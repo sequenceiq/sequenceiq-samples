@@ -5,15 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>sequenceiq-samples</groupId>
     <artifactId>sequenceiq-samples</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
 
+    <modules>
+        <module>hadoop-samples</module>
+    </modules>
+
     <dependencies>
-        <dependency>
-            <groupId>org.apache.flume</groupId>
-            <artifactId>flume-ng-embedded-agent</artifactId>
-            <version>1.4.0</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -28,21 +27,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>9.1.2.v20140210</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>9.1.2.v20140210</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>javax-websocket-server-impl</artifactId>
-            <version>9.1.2.v20140210</version>
         </dependency>
     </dependencies>
 
