@@ -10,6 +10,7 @@
 
     <modules>
         <module>hadoop-samples</module>
+        <module>angular-aws-console</module>
     </modules>
 
     <dependencies>
