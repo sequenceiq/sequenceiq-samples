@@ -10,10 +10,9 @@
 	<packaging>war</packaging>
 	<name>angular_aws_web</name>
 
-
 	<dependencies>
 		<dependency>
-			<groupId>angular-aws-console</groupId>
+			<groupId>sequenceiq-samples</groupId>
 			<artifactId>angular-aws-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>

@@ -1,7 +1,7 @@
 package com.sequenceiq.samples.web.controller;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.sequenceiq.core.credentials.SimpleAWSCredentials;
+import com.sequenceiq.samples.core.credentials.SimpleAWSCredentials;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;

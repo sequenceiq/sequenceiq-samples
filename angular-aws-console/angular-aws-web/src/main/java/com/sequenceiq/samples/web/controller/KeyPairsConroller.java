@@ -2,7 +2,7 @@ package com.sequenceiq.samples.web.controller;
 
 import com.amazonaws.services.ec2.model.CreateKeyPairResult;
 import com.amazonaws.services.ec2.model.KeyPairInfo;
-import com.sequenceiq.core.service.KeyPairService;
+import com.sequenceiq.samples.core.service.KeyPairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

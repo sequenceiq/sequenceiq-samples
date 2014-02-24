@@ -3,7 +3,7 @@ package com.sequenceiq.samples.core.service.simple;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancingClient;
-import com.sequenceiq.core.credentials.SimpleAWSCredentialsProvider;
+import com.sequenceiq.samples.core.credentials.SimpleAWSCredentialsProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

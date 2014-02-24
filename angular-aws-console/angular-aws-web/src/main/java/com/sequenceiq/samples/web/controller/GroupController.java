@@ -3,7 +3,7 @@ package com.sequenceiq.samples.web.controller;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupResult;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.SecurityGroup;
-import com.sequenceiq.core.service.SecurityGroupService;
+import com.sequenceiq.samples.core.service.SecurityGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

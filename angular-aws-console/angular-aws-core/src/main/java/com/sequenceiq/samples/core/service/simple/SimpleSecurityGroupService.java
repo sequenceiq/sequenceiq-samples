@@ -3,7 +3,7 @@ package com.sequenceiq.samples.core.service.simple;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.*;
-import com.sequenceiq.core.service.SecurityGroupService;
+import com.sequenceiq.samples.core.service.SecurityGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

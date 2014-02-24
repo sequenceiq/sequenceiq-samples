@@ -10,7 +10,6 @@
     <artifactId>angular-aws-model</artifactId>
     <packaging>jar</packaging>
 
-
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>

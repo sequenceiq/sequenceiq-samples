@@ -1,6 +1,6 @@
 package com.sequenceiq.samples.web.config;
 
-import com.sequenceiq.core.config.CoreConfiguration;
+import com.sequenceiq.samples.core.config.CoreConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;

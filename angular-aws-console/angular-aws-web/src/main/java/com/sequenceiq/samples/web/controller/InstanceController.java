@@ -1,9 +1,9 @@
 package com.sequenceiq.samples.web.controller;
 
 import com.amazonaws.services.ec2.model.*;
-import com.sequenceiq.core.service.InstanceService;
+import com.sequenceiq.samples.core.service.InstanceService;
 import com.sequenceiq.samples.model.AWSReservation;
-import com.sequenceiq.web.transformers.ReservationTransformer;
+import com.sequenceiq.samples.web.transformers.ReservationTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

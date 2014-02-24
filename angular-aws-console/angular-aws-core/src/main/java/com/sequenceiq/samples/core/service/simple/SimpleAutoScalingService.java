@@ -8,7 +8,7 @@ import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancingClient;
 import com.amazonaws.services.elasticloadbalancing.model.*;
-import com.sequenceiq.core.service.AutoScalingService;
+import com.sequenceiq.samples.core.service.AutoScalingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
