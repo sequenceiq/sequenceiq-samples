@@ -11,6 +11,7 @@
     <modules>
         <module>hadoop-samples</module>
         <module>angular-aws-console</module>
+        <module>etl-samples</module>
     </modules>
 
     <dependencies>
