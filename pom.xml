@@ -9,9 +9,9 @@
     <version>1.0</version>
 
     <modules>
-        <module>hadoop-samples</module>
         <module>angular-aws-console</module>
         <module>etl-samples</module>
+        <module>flume-websocket</module>
     </modules>
 
     <dependencies>
