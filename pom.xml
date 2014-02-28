@@ -12,6 +12,7 @@
         <module>angular-aws-console</module>
         <module>etl-samples</module>
         <module>flume-websocket</module>
+        <module>async-callback</module>
     </modules>
 
     <dependencies>
