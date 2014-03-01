@@ -1,7 +1,8 @@
 package com.sequenceiq.samples.server;
 
 import com.sequenceiq.samples.client.Client;
-import com.sequenceiq.samples.client.StatusRequest;
+import com.sequenceiq.samples.transfer.StatusRequest;
+import com.sequenceiq.samples.transfer.StatusResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class Server extends Thread {
                 Thread.sleep(4000);
                 StatusRequest statusRequest = statusRequests.poll();
                 if (statusRequest != null) {
-                    clients.get(statusRequest.getClientId()).process(new StatusResponse("OK"));
+                    clients.get(statusRequest.getClientId()).receive(
+                            new StatusResponse(statusRequest.getRequestId(), "OK"));
                 }
                 if (stopRequested && statusRequests.size() == 0) {
                     stop = true;
@@ -48,11 +50,7 @@ public class Server extends Thread {
         return id;
     }
 
-    public void remove(long id) {
-        clients.remove(id);
-    }
-
-    public void receive(StatusRequest request) {
+    public void status(StatusRequest request) {
         statusRequests.add(request);
     }
 }
