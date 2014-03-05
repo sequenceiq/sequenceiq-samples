@@ -13,28 +13,38 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Closeables;
 
+/**
+ * Simple class for testing the access to a remote HDFS file system.
+ * It creates a new file on the HDFS and removes it. In case of any problems logs are written to the console.
+ */
 public class SandboxTester {
 	private static final Logger LOG = LoggerFactory.getLogger(SandboxTester.class);
+	private static final String USAGE = "java -jar sandbox-playground <sandboxUser> <namenodeHost> <namenodePort>";
 
 	public static void main(String... args) throws IOException {
 
 		if (null == args || args.length == 0) {
-			throw new IllegalArgumentException("Add the sandbox user, filename and content as argument");
+			throw new IllegalArgumentException(USAGE);
 		}
 
 		String sandBoxUser = args[0];
-		final String hdfsFileName = args[1];
-		final String content = args[2];
+		final String nameNodeHost = args[1];
+		final String nameNodePort = args[2];
 
 		UserGroupInformation.createRemoteUser(sandBoxUser).doAs(new PrivilegedAction<Object>() {
 
 			@Override
 			public Object run() {
 				try {
+
+					String hdfsFileName = "testFile.txt";
+					String content = "testing";
 					LOG.info("Creating test file {} with the content {}", hdfsFileName, content);
-					// configuration taken from the xmls in the resources
+
+					// configuration taken from the xmls in the resourcest
 					// folder!
 					Configuration configuration = new Configuration();
+					configuration.set("fs.default.name", "hdfs://" + nameNodeHost + ":" + nameNodePort);
 
 					// creates a file with the given content on the sandbox'
 					// hdfs
@@ -63,9 +73,7 @@ public class SandboxTester {
 	}
 
 	private static final void testHdfs(Configuration configuration, String fileName, String content) throws IOException {
-
 		Path hdfsFile = new Path(fileName);
-
 		FileSystem fs = FileSystem.get(hdfsFile.toUri(), configuration);
 		FSDataOutputStream out = fs.create(hdfsFile);
 		try {
