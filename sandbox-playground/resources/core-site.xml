@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://sandbox:8020</value>
+	</property>
+
+	<property>
+		<name>hadoop.socks.server</name>
+		<value>localhost:1099</value>
+	</property>
+
+	<property>
+		<name>hadoop.rpc.socket.factory.class.default</name>
+		<value>org.apache.hadoop.net.SocksSocketFactory</value>
+	</property>
+</configuration>

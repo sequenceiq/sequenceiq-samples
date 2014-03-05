@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration xmlns:xi="http://www.w3.org/2001/XInclude">
+	<property>
+		<description>The address of the applications manager interface in the
+			RM.</description>
+		<name>yarn.resourcemanager.address</name>
+		<value>sandbox:8050</value>
+	</property>
+</configuration>
