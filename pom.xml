@@ -13,7 +13,7 @@
         <module>etl-samples</module>
         <module>flume-websocket</module>
         <module>async-callback</module>
-        <module>sandbox-playground</module>
+        <module>hdp-sandbox-access</module>
         <module>mapreduce-morphline</module>
     </modules>
 
