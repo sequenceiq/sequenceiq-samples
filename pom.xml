@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <kite-version>0.10.0-cdh5.0.0-beta-2</kite-version>
+        <kite-version>0.12.0</kite-version>
     </properties>
 
     <dependencies>
