@@ -7,7 +7,7 @@
   <name>yarn-queue-tests</name>
   <url>http://maven.apache.org</url>
 <properties>		
-		<hadoop.version>2.2.0.2.0.6.0-76</hadoop.version>
+	<hadoop.version>2.2.0.2.0.6.0-76</hadoop.version>
 	</properties>  
   <dependencies>
   	<dependency>
@@ -21,30 +21,30 @@
   		<version>${hadoop.version}</version>
   	</dependency>
 	<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-hdfs</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-client-core</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-client-jobclient</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-examples</artifactId>
-			<version>${hadoop.version}</version>			
-		</dependency>			
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-hdfs</artifactId>
+		<version>${hadoop.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-mapreduce-client-core</artifactId>
+		<version>${hadoop.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+		<version>${hadoop.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-mapreduce-examples</artifactId>
+		<version>${hadoop.version}</version>			
+	</dependency>			
   	<dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.7.2</version>
-    </dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-api</artifactId>
+        	<version>1.7.2</version>
+	</dependency>
 	<dependency>
 		<groupId>ch.qos.logback</groupId>
 		<artifactId>logback-classic</artifactId>
@@ -59,21 +59,21 @@
   
   <repositories>
 	<repository>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-        <updatePolicy>never</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </snapshots>
-      <id>HDPReleases</id>
-      <name>HDP Releases</name>
-      <url>http://repo.hortonworks.com/content/repositories/releases/</url>
-      <layout>default</layout>
-    </repository>
+      	<releases>
+        	<enabled>true</enabled>
+        	<updatePolicy>always</updatePolicy>
+        	<checksumPolicy>warn</checksumPolicy>
+      	</releases>
+      	<snapshots>
+	        <enabled>false</enabled>
+	        <updatePolicy>never</updatePolicy>
+	        <checksumPolicy>fail</checksumPolicy>
+      	</snapshots>
+      	<id>HDPReleases</id>
+      	<name>HDP Releases</name>
+      	<url>http://repo.hortonworks.com/content/repositories/releases/</url>
+      	<layout>default</layout>
+    	</repository>
   </repositories> 
   
 </project>
