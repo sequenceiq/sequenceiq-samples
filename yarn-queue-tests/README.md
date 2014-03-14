@@ -7,3 +7,4 @@ To run the sample:
 To refresh queue settings:
 *yarn rmadmin -refreshQueues*
     
+To add resources programatically: https://github.com/sequenceiq/sequenceiq-samples/wiki/Add-resource-to-MRJob
