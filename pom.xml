@@ -15,6 +15,7 @@
         <module>async-callback</module>
         <module>hdp-sandbox-access</module>
         <module>mapreduce-morphline</module>
+        <module>flume-sources</module>
     </modules>
 
     <properties>
