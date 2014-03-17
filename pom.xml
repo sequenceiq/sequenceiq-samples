@@ -16,6 +16,7 @@
         <module>hdp-sandbox-access</module>
         <module>mapreduce-morphline</module>
         <module>flume-sources</module>
+        <module>yarn-queue-tests</module>
     </modules>
 
     <properties>
