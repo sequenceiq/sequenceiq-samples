@@ -1,4 +1,4 @@
-SequenceIQ example projects
+SequenceIQ Hadoop sample projects
 ============================
 
 This repository is a collection of sample projects and code examples featured in our blog entries - for more details check  [SequenceIQ blog](http://blog.sequenceiq.com). 
