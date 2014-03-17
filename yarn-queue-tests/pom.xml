@@ -1,14 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+      <artifactId>sequenceiq-samples</artifactId>
+      <groupId>sequenceiq-samples</groupId>
+      <version>1.0</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sequenceiq-samples</groupId>
   <artifactId>yarn-queue-tests</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>yarn-queue-tests</name>
-  <url>http://maven.apache.org</url>
-<properties>		
+  <packaging>jar</packaging>
+
+  <properties>
 	<hadoop.version>2.2.0.2.0.6.0-76</hadoop.version>
-	</properties>  
+	</properties>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.hadoop</groupId>
@@ -38,8 +42,8 @@
 	<dependency>
 		<groupId>org.apache.hadoop</groupId>
 		<artifactId>hadoop-mapreduce-examples</artifactId>
-		<version>${hadoop.version}</version>			
-	</dependency>			
+		<version>${hadoop.version}</version>
+	</dependency>
   	<dependency>
         	<groupId>org.slf4j</groupId>
         	<artifactId>slf4j-api</artifactId>
@@ -56,7 +60,7 @@
 		<version>1.0.9</version>
 	</dependency>
   </dependencies>
-  
+
   <repositories>
 	<repository>
       	<releases>
@@ -74,6 +78,6 @@
       	<url>http://repo.hortonworks.com/content/repositories/releases/</url>
       	<layout>default</layout>
     	</repository>
-  </repositories> 
-  
+  </repositories>
+
 </project>
