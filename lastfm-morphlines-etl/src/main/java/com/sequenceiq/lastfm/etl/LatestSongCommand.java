@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.kitesdk.morphline.api.Command;
 import org.kitesdk.morphline.api.CommandBuilder;
@@ -15,6 +13,8 @@ import org.kitesdk.morphline.api.MorphlineContext;
 import org.kitesdk.morphline.api.Record;
 import org.kitesdk.morphline.base.AbstractCommand;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.Config;
 
 public class LatestSongCommand implements CommandBuilder {
@@ -25,6 +25,7 @@ public class LatestSongCommand implements CommandBuilder {
     public static final String LOWER_OR_EQUALS = "<=";
     public static final String EQUALS = "=";
     public static final String NOT_EQUALS = "!=";
+    public static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public Collection<String> getNames() {
@@ -51,8 +52,10 @@ public class LatestSongCommand implements CommandBuilder {
 
         @Override
         protected boolean doProcess(Record record) {
-            Map attachmentBody = (LinkedHashMap) record.get("_attachment_body").get(0);
-            String fieldValue = attachmentBody.get(fieldName).toString();
+            String attachmentBody = (String) record.get("_attachment_body").get(0);
+            JsonNode object = objectMapper.valueToTree(attachmentBody);
+            JsonNode timestamp = object.get(fieldName);
+            String fieldValue = timestamp.textValue();
 
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
