@@ -2,6 +2,7 @@ package com.sequenceiq.lastfm.etl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 import org.apache.flume.Context;
 import org.apache.flume.Event;
@@ -9,6 +10,7 @@ import org.apache.flume.serialization.EventSerializer;
 import org.apache.flume.serialization.HeaderAndBodyTextEventSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class CustomLastfmHeaderAndBodyTextEventSerializer implements EventSerializer {
 
@@ -52,7 +54,8 @@ public class CustomLastfmHeaderAndBodyTextEventSerializer implements EventSerial
 
     @Override
     public void write(Event e) throws IOException {
-        out.write(e.getBody());
+        String message = e.getHeaders().get("message");
+        out.write(message.getBytes(Charset.forName("UTF-8")));
         if (appendNewline) {
             out.write('\n');
         }
@@ -67,8 +70,7 @@ public class CustomLastfmHeaderAndBodyTextEventSerializer implements EventSerial
 
         @Override
         public EventSerializer build(Context context, OutputStream out) {
-            CustomLastfmHeaderAndBodyTextEventSerializer customLastfmHeaderAndBodyTextEventSerializer = new CustomLastfmHeaderAndBodyTextEventSerializer(out, context);
-            return customLastfmHeaderAndBodyTextEventSerializer;
+            return new CustomLastfmHeaderAndBodyTextEventSerializer(out, context);
         }
 
     }
