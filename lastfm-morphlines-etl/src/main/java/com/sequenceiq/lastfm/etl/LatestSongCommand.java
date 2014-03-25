@@ -1,6 +1,5 @@
 package com.sequenceiq.lastfm.etl;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -52,12 +51,12 @@ public class LatestSongCommand implements CommandBuilder {
 
         @Override
         protected boolean doProcess(Record record) {
-            String attachmentBody = (String) record.get("_attachment_body").get(0);
-            JsonNode object = objectMapper.valueToTree(attachmentBody);
-            JsonNode timestamp = object.get(fieldName);
-            String fieldValue = timestamp.textValue();
+            String attachmentBody = (String) record.get("message").get(0);
 
             try {
+                JsonNode object = objectMapper.readValue(attachmentBody, JsonNode.class);
+                String fieldValue = object.findValue(fieldName).textValue();
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 int commandDate = Integer.valueOf(command
@@ -94,10 +93,11 @@ public class LatestSongCommand implements CommandBuilder {
                         return false;
                     }
                 } else {
-                    LOG.debug("bad command syntax");
+                    LOG.info("bad command syntax");
                 }
-            } catch (ParseException e) {
-                LOG.debug("parse exception: " + e.getMessage());
+            } catch (Exception e) {
+                LOG.info("parse exception: " + e.getMessage());
+                return false;
             }
 
             return super.doProcess(record);
