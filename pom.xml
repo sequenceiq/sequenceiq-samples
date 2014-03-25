@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <kite-version>0.12.0</kite-version>
+        <kite-version>0.12.1</kite-version>
     </properties>
 
     <dependencies>
