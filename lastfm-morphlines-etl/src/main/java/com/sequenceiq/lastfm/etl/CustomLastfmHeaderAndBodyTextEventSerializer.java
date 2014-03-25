@@ -54,10 +54,14 @@ public class CustomLastfmHeaderAndBodyTextEventSerializer implements EventSerial
 
     @Override
     public void write(Event e) throws IOException {
-        String message = e.getHeaders().get("message");
-        out.write(message.getBytes(Charset.forName("UTF-8")));
-        if (appendNewline) {
-            out.write('\n');
+        try {
+            String message = e.getHeaders().get("message");
+            out.write(message.getBytes(Charset.forName("UTF-8")));
+            if (appendNewline) {
+                out.write('\n');
+            }
+        } catch (Exception ex) {
+            LOGGER.info("There was no message in the header...");
         }
     }
 

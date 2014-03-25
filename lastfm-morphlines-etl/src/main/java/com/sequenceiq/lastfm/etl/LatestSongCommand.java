@@ -1,7 +1,6 @@
 package com.sequenceiq.lastfm.etl;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -19,12 +18,9 @@ import com.typesafe.config.Config;
 public class LatestSongCommand implements CommandBuilder {
 
     public static final String HIGHER = ">";
-    public static final String HIGHER_OR_EQUALS = ">=";
     public static final String LOWER = "<";
-    public static final String LOWER_OR_EQUALS = "<=";
     public static final String EQUALS = "=";
-    public static final String NOT_EQUALS = "!=";
-    public static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper OBJECTMAPPER = new ObjectMapper();
 
     @Override
     public Collection<String> getNames() {
@@ -39,12 +35,14 @@ public class LatestSongCommand implements CommandBuilder {
     private static final class DateCheck extends AbstractCommand {
 
         private final String fieldName;
-        private final String command;
+        private final String operator;
+        private final String pattern;
 
         public DateCheck(CommandBuilder builder, Config config, Command parent, Command child, MorphlineContext context) {
             super(builder, config, parent, child, context);
             this.fieldName = getConfigs().getString(config, "field");
-            this.command = getConfigs().getString(config, "command");
+            this.operator = getConfigs().getString(config, "operator");
+            this.pattern = getConfigs().getString(config, "pattern");
             LOG.debug("fieldName: {}", fieldName);
             validateArguments();
         }
@@ -54,46 +52,30 @@ public class LatestSongCommand implements CommandBuilder {
             String attachmentBody = (String) record.get("message").get(0);
 
             try {
-                JsonNode object = objectMapper.readValue(attachmentBody, JsonNode.class);
+                JsonNode object = OBJECTMAPPER.readValue(attachmentBody, JsonNode.class);
                 String fieldValue = object.findValue(fieldName).textValue();
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                int commandDate = Integer.valueOf(command
-                        .replaceAll(LOWER, "")
-                        .replaceAll(HIGHER, "")
-                        .replaceAll(NOT_EQUALS, "")
-                        .replaceAll(EQUALS, "")
-                        .trim());
                 Date fieldDate = sdf.parse(fieldValue);
-                Calendar fieldValueAsCalendar = Calendar.getInstance();
-                fieldValueAsCalendar.setTime(fieldDate);
-                if (command.startsWith(HIGHER_OR_EQUALS)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) < commandDate) {
+                Date patternDate = sdf.parse(pattern + " 00:00:00");
+
+                if (operator.equals(HIGHER)) {
+                    if (!fieldDate.after(patternDate)) {
                         return false;
                     }
-                } else if (command.startsWith(LOWER_OR_EQUALS)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) > commandDate) {
+                } else if (operator.equals(LOWER)) {
+                    if (!fieldDate.before(patternDate)) {
                         return false;
                     }
-                } else if (command.startsWith(NOT_EQUALS)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) == commandDate) {
-                        return false;
-                    }
-                } else if (command.startsWith(HIGHER)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) < commandDate) {
-                        return false;
-                    }
-                } else if (command.startsWith(LOWER)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) > commandDate) {
-                        return false;
-                    }
-                } else if (command.startsWith(EQUALS)) {
-                    if (fieldValueAsCalendar.get(Calendar.YEAR) != commandDate) {
+                } else if (operator.equals(EQUALS)) {
+                    if (fieldDate.getYear() != patternDate.getYear()
+                            || fieldDate.getMonth() != patternDate.getMonth()
+                            || fieldDate.getDay() != patternDate.getDay()) {
                         return false;
                     }
                 } else {
-                    LOG.info("bad command syntax");
+                    LOG.info("bad operator syntax");
                 }
             } catch (Exception e) {
                 LOG.info("parse exception: " + e.getMessage());
