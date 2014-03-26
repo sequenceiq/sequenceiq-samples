@@ -194,6 +194,6 @@ Download the Last.fm sample dataset from [S3](https://s3-eu-west-
 Start Flume using the following [configuration](https://github.com/sequenceiq/sequenceiq-samples/blob/master/lastfm-morphlines-etl/src/main/resources/flume.conf) - make sure you change the input and output folders accordingly.
 Once the data is processed and available on HDFS, you can run the second ETL process, this time using Morhplines from a MapReduce job `yarn jar lastfm-morphlines-etl-1.0.jar com.sequenceiq.lastfm.etl.MapperCleaner input output morphline-file morphlineId` - make sure you change the arguments.
 
-As you can see embedding Morphlines in your application and using it is very easy - the increasing number of built-in commands usually satisfy most of the needs, but the framework offer flexible ways to write custom commands as well.
+As you can see embedding Morphlines in your application and using it is very easy - the increasing number of built-in commands usually satisfy most of the needs, but the framework offers flexible ways to write custom commands as well.
 
 Happy Morphlineing.
