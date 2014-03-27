@@ -52,7 +52,7 @@ public class LatestSongCommand implements CommandBuilder {
 
         @Override
         protected boolean doProcess(Record record) {
-            Map attachmentBody = (LinkedHashMap) record.get(Fields.ATTACHMENT_BODY).get(0);
+            Map<String, String> attachmentBody = (LinkedHashMap<String, String>) record.get(Fields.ATTACHMENT_BODY).get(0);
             String fieldValue = attachmentBody.get(fieldName).toString();
 
             try {
