@@ -4,14 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.kitesdk.morphline.api.Command;
 import org.kitesdk.morphline.api.CommandBuilder;
 import org.kitesdk.morphline.api.MorphlineContext;
 import org.kitesdk.morphline.api.Record;
 import org.kitesdk.morphline.base.AbstractCommand;
+import org.kitesdk.morphline.base.Fields;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.Config;
 
@@ -49,12 +52,10 @@ public class LatestSongCommand implements CommandBuilder {
 
         @Override
         protected boolean doProcess(Record record) {
-            String attachmentBody = (String) record.get("message").get(0);
+            Map attachmentBody = (LinkedHashMap) record.get(Fields.ATTACHMENT_BODY).get(0);
+            String fieldValue = attachmentBody.get(fieldName).toString();
 
             try {
-                JsonNode object = OBJECTMAPPER.readValue(attachmentBody, JsonNode.class);
-                String fieldValue = object.findValue(fieldName).textValue();
-
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 Date fieldDate = sdf.parse(fieldValue);
@@ -81,7 +82,13 @@ public class LatestSongCommand implements CommandBuilder {
                 LOG.info("parse exception: " + e.getMessage());
                 return false;
             }
-
+            record.removeAll(Fields.ATTACHMENT_BODY);
+            try {
+                record.put(Fields.MESSAGE, OBJECTMAPPER.writeValueAsString(attachmentBody));
+            } catch (JsonProcessingException e) {
+                LOG.info("parse exception: " + e.getMessage());
+                return false;
+            }
             return super.doProcess(record);
         }
 
