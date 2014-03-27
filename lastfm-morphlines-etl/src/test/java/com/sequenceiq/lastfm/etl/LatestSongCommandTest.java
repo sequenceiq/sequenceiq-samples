@@ -24,7 +24,7 @@ public class LatestSongCommandTest extends AbstractMorphlineTest {
     @Test
     public void testNok2011() throws IOException {
         Record record = assertResult("test-morphlines/date", "/test-documents/sample2011.json");
-        assertFalse(morphline.process(record));
+        assertTrue(morphline.process(record));
     }
 
     @Test

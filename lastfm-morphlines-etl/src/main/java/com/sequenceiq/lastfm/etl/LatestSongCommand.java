@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.kitesdk.morphline.api.Command;
@@ -52,7 +51,7 @@ public class LatestSongCommand implements CommandBuilder {
 
         @Override
         protected boolean doProcess(Record record) {
-            Map<String, String> attachmentBody = (LinkedHashMap<String, String>) record.get(Fields.ATTACHMENT_BODY).get(0);
+            Map<String, String> attachmentBody = (Map<String, String>) record.get(Fields.ATTACHMENT_BODY).get(0);
             String fieldValue = attachmentBody.get(fieldName).toString();
 
             try {
@@ -63,17 +62,17 @@ public class LatestSongCommand implements CommandBuilder {
 
                 if (operator.equals(HIGHER)) {
                     if (!fieldDate.after(patternDate)) {
-                        return false;
+                        return true;
                     }
                 } else if (operator.equals(LOWER)) {
                     if (!fieldDate.before(patternDate)) {
-                        return false;
+                        return true;
                     }
                 } else if (operator.equals(EQUALS)) {
                     if (fieldDate.getYear() != patternDate.getYear()
                             || fieldDate.getMonth() != patternDate.getMonth()
                             || fieldDate.getDay() != patternDate.getDay()) {
-                        return false;
+                        return true;
                     }
                 } else {
                     LOG.info("bad operator syntax");
