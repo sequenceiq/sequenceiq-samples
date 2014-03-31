@@ -18,6 +18,7 @@
         <module>flume-sources</module>
         <module>yarn-queue-tests</module>
         <module>lastfm-morphlines-etl</module>
+        <module>tez-gad-jobs</module>
     </modules>
 
     <properties>
