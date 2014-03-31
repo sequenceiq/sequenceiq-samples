@@ -7,7 +7,7 @@ There is a great example of using this classification algorithm on the [Apache M
 We needed a larger dataset than the one used in the example above. Because of simplicity we multiplied the number of rows in this dataset by 10 (this isn't useful when trying to build a real world classification model, but for now we were not interested in the outcome of the training just in the difference between the Tez and classic MR runtimes).
 You can download this extended dataset [here](https://s3-eu-west-1.amazonaws.com/seq-tez/KDDTrain%2B_long.arff)
 
-### Trying this example
+### Trying out this example
 To try this example you need to have a Tez runtime first. For your convenience we have put together a [Tez-Docker](https://github.com/sequenceiq/tez-docker) image where the Tez runtime is already configured.
 
 When your Tez runtime is ready, put the downloaded dataset in HDFS:
