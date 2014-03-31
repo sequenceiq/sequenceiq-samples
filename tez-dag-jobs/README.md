@@ -1,10 +1,10 @@
 Using Mahout with Tez
 ======================
 
-In our introductory blog post about Tez we have submitted a Mahout job to YARN using both the classic MapReduce and the Tez Application Master.
+In our introductory blog post about Tez we have submitted a Mahout job to YARN using both the classic MapReduce and the Tez Application Masters.
 The Mahout job we used for this experiment was a classification algorithm, the training of a Partial Decision Forest.
 There is a great example of using this classification algorithm on the [Apache Mahout page](https://mahout.apache.org/users/stuff/partial-implementation.html).
-We needed a larger dataset than the one used in the example above. Because of simplicity we multiplied the rows in this dataset by 10 (this isn't useful when trying to build a real world classification model, but for now we were not interested in the outcome of the training just in the difference between the Tez and classic MR runtimes).
+We needed a larger dataset than the one used in the example above. Because of simplicity we multiplied the number of rows in this dataset by 10 (this isn't useful when trying to build a real world classification model, but for now we were not interested in the outcome of the training just in the difference between the Tez and classic MR runtimes).
 You can download this extended dataset [here](https://s3-eu-west-1.amazonaws.com/seq-tez/KDDTrain%2B_long.arff)
 
 ### Trying this example
@@ -23,7 +23,7 @@ hadoop jar mahout-core-0.8.0.2.0.10.0-1-job.jar org.apache.mahout.classifier.df.
 ```
 
 When the descriptor is ready the classification training can be run on the dataset. This class contains a single MapReduce job that will be submitted to the Tez ApplicationMaster.
-The true power of Tez shows up when more complicated DAGs are submitted, but in this example we just wanted to show that even a single MapReduce job runs much faster on Tez without rewriting a single line of code.
+The true power of Tez shows up when more complicated DAGs (or at least MRR jobs) are created, but in this example we just wanted to show that even a single MapReduce job runs much faster on Tez without rewriting a single line of code.
 ```
 hadoop jar mahout-examples-0.8.0.2.0.10.0-1-job.jar org.apache.mahout.classifier.df.mapreduce.BuildForest -Dmapred.max.split.size=1874231 -d testdata/KDDTrain+_long.arff -ds testdata/KDDTrain+.info -sl 5 -t 100 -o nsl-forest
 ```
