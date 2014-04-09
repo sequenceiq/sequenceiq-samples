@@ -1,5 +1,7 @@
-Last.fm data processing with Kite Morphlines
-==============================================
+####Last.fm data processing with Kite Morphlines
+================================================
+
+**_Disclaimer: Recently we've been asked to write a guest post on Cloudera's blog about how we do ETL. This README.md is a transcript of the original [post](http://blog.cloudera.com/blog/2014/04/how-to-process-data-using-morphlines-in-kite-sdk/)._**
 
 At [SequenceIQ](http://sequenceiq.com) we have a platform and an API which consumes and ingests various types of data from different sources to offer predictive analytics and actionable insights.
 The datasets we work with are structured, unstructured, log files and communication records and require constant refining, cleaning and transformation. Since the datasets we load into Hadoop are coming from different sources (industry standard and proprietary adapters, Apache Flume, MQTT, iBeacon, etc.)
