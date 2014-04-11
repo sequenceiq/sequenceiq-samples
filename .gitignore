@@ -16,6 +16,8 @@ target/
 *~.nib
 local.properties
 .classpath
+.gradle
+gradle/
 .settings/
 .loadpath
 
