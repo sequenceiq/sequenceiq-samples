@@ -19,6 +19,7 @@
         <module>yarn-queue-tests</module>
         <module>lastfm-morphlines-etl</module>
         <module>tez-dag-jobs</module>
+        <module>phoenix-jooq</module>
     </modules>
 
     <properties>
@@ -70,6 +71,14 @@
             <id>cdh.repo</id>
             <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
             <name>Cloudera Repositories</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>SequenceIQ</id>
+            <name>SequenceIQ</name>
+            <url>https://github.com/sequenceiq/sequenceiq-maven-repo</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
