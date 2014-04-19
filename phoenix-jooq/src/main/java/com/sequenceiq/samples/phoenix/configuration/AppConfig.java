@@ -42,12 +42,12 @@ public class AppConfig {
     }
 
     @Bean
-    public DataSourceConnectionProvider createDataSourceConnectionProvider() {
+    public DataSourceConnectionProvider dataSourceConnectionProvider() {
         return new DataSourceConnectionProvider(dataSourceProxy());
     }
 
     @Bean
     public DefaultDSLContext createDefaultDSLContext() {
-        return new DefaultDSLContext(dataSource(), SQLDialect.MYSQL);
+        return new DefaultDSLContext(dataSourceConnectionProvider(), SQLDialect.MYSQL);
     }
 }
