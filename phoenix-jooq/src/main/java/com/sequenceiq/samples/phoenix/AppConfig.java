@@ -1,4 +1,6 @@
-package com.sequenceiq.samples.phoenix.configuration;
+package com.sequenceiq.samples.phoenix;
+
+import java.util.Random;
 
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
@@ -50,4 +52,10 @@ public class AppConfig {
     public DefaultDSLContext createDefaultDSLContext() {
         return new DefaultDSLContext(dataSourceConnectionProvider(), SQLDialect.MYSQL);
     }
+
+    @Bean
+    public Random createRandom() {
+        return new Random();
+    }
+
 }
