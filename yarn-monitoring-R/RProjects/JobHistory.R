@@ -129,7 +129,7 @@ getActiveReducePhaseReducerNumdata <- function(job, minTime=NULL)
 	nums <- calcNums(times, minTime)
 	nums
 }
-# This function plot the number of active tasks (mappers or reducers as two graphs, reducers with phases)
+# This function plot the number of active tasks (mappers or reducers as two graphs, reducers with phases) 
 # at every time point when this number changes
 plotActiveMRTasksNumdata <- function(job, relative=TRUE)
 {
@@ -211,15 +211,15 @@ transposeListOfLists <- function(listoflist)
 		for(j in 1:length(listoflist[[i]]))
 		{
 			result[[names(listoflist[[i]][j])]]<-c(result[[names(listoflist[[i]][j])]],listoflist[[i]][[j]])
-		}
-	}
+		}	
+	}	
 	result
 }
 getnum<-function(names)
 {
 	substr(names, 5, 6)
 }
-createTimeBoxDatadata <- function(job, relative=FALSE)
+createTimeBoxData <- function(job, relative=FALSE)
 {
   result<-timeboxes()
   attemptindices<-match(job$tasks$successfulAttempt,job$attempts$id)
@@ -231,12 +231,12 @@ createTimeBoxDatadata <- function(job, relative=FALSE)
 	minstart<-0
   for(i in 1:length(mapindices))
   {
-  	node<-job$attempts$nodeHttpAddress[mapindices[i]]
+  	node<-job$attempts$nodeHttpAddress[mapindices[i]]  
 	result<-addBox.timeboxes(result, node, c(job$attempts$startTime[mapindices[i]]-minstart,job$attempts$finishTime[mapindices[i]]-minstart,0,0,0))
   }
   for(i in 1:length(reduceindices))
   {
-  	node<-job$attempts$nodeHttpAddress[reduceindices[i]]
+  	node<-job$attempts$nodeHttpAddress[reduceindices[i]]  
 	result<-addBox.timeboxes(result, node, c(0, job$attempts$startTime[reduceindices[i]]-minstart,job$attempts$shuffleFinishTime[i]-minstart,job$attempts$mergeFinishTime[i]-minstart,job$attempts$finishTime[reduceindices[i]]-minstart))
   }
   result

@@ -32,21 +32,21 @@ plot.timeboxes<-function(data, lineGroupNum=length(data), linesPerGroup=1, sortG
 			minx <- mi
 		ma<-max(data[[n]][data[[n]]>0])
 		if (maxx < ma )
-			maxx <- ma
+			maxx <- ma		
 	}
 	plot(1, type="n", xlim=c(minx-0.5,maxx+0.5), ylim=ylim,  xlab="time (ms)",ylab="nodes")
 	axis(4,at=(1:length(data))-0.5,labels=nodeconv(names(data)))
 	for(i in 1:lineGroupNum)
 	{
-		lines(c(minx-0.5,maxx+0.5),c(i,i))
+		lines(c(minx-0.5,maxx+0.5),c(i,i))	
 	}
 	for(n in 1:length(data))
-	{
+	{ 
 		for(r in 1:nrow(data[[n]]))
 		{
 			for(c in 1:(ncol(data[[n]])-1))
 			{
-				col<-colors[c]
+				col<-colors[c]				
 				if ( data[[n]][r,c]!=0 && data[[n]][r,c+1]!=0)
 					rect(data[[n]][r,c],((n-1)*linesPerGroup+((r-1)%%linesPerGroup))/linesPerGroup,data[[n]][r,c+1],((n-1)*linesPerGroup+((r-1)%%linesPerGroup+1))/linesPerGroup, col=col)
 			}
