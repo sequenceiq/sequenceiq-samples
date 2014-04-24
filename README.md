@@ -15,7 +15,7 @@ Where the samples are not covered by a blog entry, we try to make them self expl
 * **mapreduce-morphline** module: [Data cleaning with MapReduce and Morphlines](http://blog.sequenceiq.com/blog/2014/03/11/data-cleaning-with-mapreduce-and-morphlines/)
 * **yarn-queue-tests** module: [YARN Capacity Scheduler](http://blog.sequenceiq.com/blog/2014/03/14/yarn-capacity-scheduler/)
 * **tez-dag-jobs** module: [Using Mahout with Tez](http://blog.sequenceiq.com/blog/2014/03/31/mahout-on-tez/)
-
+* **yarn-monitoring-R** module: [Monitoring YARN with R]()
 
 Thanks,
 [SequenceIQ](http://sequenceiq.com)
