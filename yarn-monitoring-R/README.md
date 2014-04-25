@@ -1,13 +1,3 @@
----
-layout: post
-title: "Job profiling with R"
-date: 2014-04-22 10:35:04 +0100
-comments: true
-categories: [YARN, R, Profiling, Hadoop, Ambari]
-author: Janos Matyas
-published: false
----
-
 Management of a large Hadoop cluster is not an easy task - however thanks to projects like [Apache Ambari](http://ambari.apache.org/) these tasks are getting easier. Ambari provides an intuitive, easy-to-use Hadoop management web UI backed by its REST API to provision, manage and monitor a Hadoop cluster. While Ambari helps us a lot to monitor a cluster (leverages [Ganglia](http://ganglia.sourceforge.net/) and [Nagios](http://www.nagios.org/)), many times we have to profile our MapReduce jobs as well.
 
 At SequenceIQ in order to profile MapReduce jobs, understand (job)internal statistics and create usefull graphs many times we rely on [R](http://www.r-project.org/). The metrics are collected from Ambari and the [YARN History Server](http://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/HistoryServerRest.html).
