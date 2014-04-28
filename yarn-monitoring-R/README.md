@@ -114,6 +114,8 @@ As you can see monitoring a MapReduce job through the HistoryServer it is extrem
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/yarn-monitoring-R/images/96_mappers_20_reducers_mr_by_nodes.png)
 
 
-As always, the example project is available at our [GitHub](https://github.com/sequenceiq/yarn-monitoring) page. We are working on a `heuristic` queue scheduler for a better utilization of our cluster, and also to provide QoS on Hadoop - profiling and understanding the running MapReduce jobs and the job queues are essential for that. Also based on the charts broken down by nodes we can quickly identify servers with potential issues (slow I/O, memory, etc).
+As always, the example project is available at our [GitHub](https://github.com/sequenceiq/sequenceiq-samples/tree/master/yarn-monitoring-R) page. We are working on a `heuristic` queue scheduler for a better utilization of our cluster, and also to provide QoS on Hadoop - profiling and understanding the running MapReduce jobs and the job queues are essential for that. Also based on the charts broken down by nodes we can quickly identify servers with potential issues (slow I/O, memory, etc).
 
 Follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/) to read about how we progress with the sceduler and get early access, or feel free to contribute to our YARN monitoring project.
+
+
