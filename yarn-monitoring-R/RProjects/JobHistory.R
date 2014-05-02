@@ -16,7 +16,7 @@ getJob <- function(jobId, historyServer)
 	for(i in 1:length(job$tasks$successfulAttempt))
 	{
 		attempt<-job$tasks$successfulAttempt[i]
-		url<-paste("http://node02.gusgus.linux:19888/ws/v1/history/mapreduce/jobs/",jobId,"/tasks/",job$tasks$id[i], "/attempts/",attempt,sep="")
+		url<-paste(historyServer, "/ws/v1/history/mapreduce/jobs/",jobId,"/tasks/",job$tasks$id[i], "/attempts/",attempt,sep="")
 		attempts[[i]]<-fromJSON(getURL(url,httpheader = c(Accept="application/json")))$taskAttempt
 	}
 	job$attempts<-transposeListOfLists(attempts)
@@ -31,7 +31,7 @@ getTaskCounters <- function(jobId, historyServer)
 	for(i in 1:length(tasks$successfulAttempt))
 	{
 		attempt<-tasks$successfulAttempt[i]
-		url<-paste("http://node02.gusgus.linux:19888/ws/v1/history/mapreduce/jobs/",jobId,"/tasks/",tasks$id[i], "/attempts/",attempt,"/counters",sep="")
+		url<-paste(historyServer, "/ws/v1/history/mapreduce/jobs/",jobId,"/tasks/",tasks$id[i], "/attempts/",attempt,"/counters",sep="")
 		counter<-fromJSON(getURL(url,httpheader = c(Accept="application/json")))$jobTaskAttemptCounters$taskAttemptCounterGroup
 		for( j in 1:length(counter))
 		{
