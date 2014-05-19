@@ -1,0 +1,73 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+eclipse {
+    classpath { 
+        downloadSources = true 
+    }
+}
+
+sourceCompatibility = 1.7
+group = 'com.sequenceiq'
+version = 0.1
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts { archives sourcesJar }
+
+repositories {
+    mavenCentral()
+    maven { url "https://repository.apache.org/content/groups/staging" }
+    maven { url "https://repository.pentaho.org/artifactory/repo" }
+}
+
+configurations {
+    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+}
+
+dependencies {
+    compile("ch.qos.logback:logback-classic:1.1.2")
+    compile("org.apache.hadoop:hadoop-common:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-hdfs:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-jobclient:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-app:${hadoopVersion}")
+
+    compile("org.codehaus.jackson:jackson-core-asl:1.9.13")
+    compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+}
+
+task shadedJar(type: Jar, dependsOn: classes) {
+    description = 'Jars all the dependencies of the project into a single jar file'
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+            exclude "META-INF/*.SF"
+            exclude "META-INF/*.DSA"
+            exclude "META-INF/*.RSA"
+            exclude "org/apache/log4j/**"
+            //exclude "org/apache/hadoop/**"
+            exclude "javax/servlet/**"
+            exclude "com/google/common/io/**"
+        }
+}
+
+task distLibs(type: Tar) {
+    description = 'Tars all the dependencies of the project'
+    baseName = jar.baseName + "-dependencies"
+    from configurations.runtime
+}
+
+task simpleJar(type: Jar, dependsOn: classes) {
+    description = 'Creates a jar without dependencies'
+    appendix = 'plain'
+    from sourceSets.main.output
+}
+
+defaultTasks 'clean', 'shadedJar', 'simpleJar', 'distLibs'
+
+task my << {
+    println sourceSets.main.output.classesDir
+}
