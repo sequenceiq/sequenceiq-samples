@@ -1,0 +1,111 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'maven'
+version = '1.0'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories{
+    maven { url "https://repository.apache.org/content/groups/staging" }
+    maven { url "http://conjars.org/repo/" }
+    mavenCentral()
+}
+
+compileJava {
+    targetCompatibility = 1.7
+}
+
+
+tasks.withType(ScalaCompile) {
+    targetCompatibility = 1.7
+    scalaCompileOptions.deprecation = false
+    scalaCompileOptions.unchecked = false
+    scalaCompileOptions.additionalParameters = ['-nowarn']
+    options.warnings = false
+    options.compilerArgs = ["-Xmax-classfile-name 130"]
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile "org.scala-lang:scala-library:2.10.2"
+    testCompile "org.specs2:specs2_2.10:2.3.10"
+
+    // Hadoop
+    compile("org.apache.hadoop:hadoop-common:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-jobclient:${hadoopVersion}")
+
+    // Scalding
+    compile("com.twitter:scalding-core_2.10:${scaldingVersion}") {
+        exclude group: 'cascading';
+    }
+    compile("com.twitter:scalding-args_2.10:${scaldingVersion}") {
+        exclude group: 'cascading';
+    }
+    compile("com.twitter:scalding-date_2.10:${scaldingVersion}") {
+        exclude group: 'cascading';
+    }
+    compile("com.twitter:scalding-json_2.10:${scaldingVersion}") {
+        exclude group: 'cascading';
+    }
+
+    // Cascading
+    compile( "cascading:cascading-core:${cascadingVersion}")
+    compile( "cascading:cascading-local:${cascadingVersion}" )
+    compile( "cascading:cascading-hadoop:${cascadingVersion}" )
+    compile( "cascading:cascading-hadoop2-mr1:${cascadingVersion}" )
+
+    compile("org.apache.hbase:hbase:${hbaseVersion}")
+    compile("org.apache.hbase:hbase-common:${hbaseVersion}")
+    compile("org.apache.hbase:hbase-client:${hbaseVersion}")
+    compile("org.apache.hbase:hbase-server:${hbaseVersion}")
+    compile("org.apache.hbase:hbase:${hbaseVersion}")
+
+    compile('parallelai:parallelai.spyglass:2.10_0.9_4.3') {
+        exclude group: 'org.apache.hadoop';
+        exclude group: 'com.twitter.elephantbird'
+        exclude group: 'cascading'
+        exclude group: 'com.twitter'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
+jar {
+    baseName = 'scalding-correalation'
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+        exclude "org/slf4j/**"
+        exclude "META-INF/*LICENSE*"
+        exclude "META-INF/*license*"
+        exclude "META-INF/license/**"
+        exclude "META-INF/license"
+        exclude "*LICENSE*"
+        exclude "com/twitter/bijection/**"
+        exclude "com/fasterxml/**"
+        exclude "javax/servlet/**"
+    }
+
+    manifest {
+        attributes 'Main-Class': 'com.sequenceiq.scalding.JobRunner', 'Implementation-Title': 'scalding-correlation', 'Implementation-Version': version
+    }
+}
+
+test {
+    include 'com/sequenceiq/**'
+    testLogging.showStandardStreams = true
+    minHeapSize = "512m"
+    maxHeapSize = "2048m"
+    jvmArgs '-XX:MaxPermSize=2048m'
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message)
+    }
+}
