@@ -20,6 +20,7 @@
         <module>lastfm-morphlines-etl</module>
         <module>tez-dag-jobs</module>
         <module>phoenix-jooq</module>
+        <module>groovy-bug</module>
     </modules>
 
     <properties>
