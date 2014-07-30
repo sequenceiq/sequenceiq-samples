@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'scala'
+version = '1.0'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories{
+    maven { url "https://repository.cloudera.com/artifactory/cloudera-repos/" }
+    mavenCentral()
+}
+
+tasks.withType(ScalaCompile) {
+    targetCompatibility = 1.7
+    scalaCompileOptions.deprecation = false
+    scalaCompileOptions.unchecked = false
+    scalaCompileOptions.additionalParameters = ['-nowarn']
+    options.warnings = false
+    options.compilerArgs = ["-Xmax-classfile-name 130"]
+}
+
+compileJava {
+    targetCompatibility = 1.7
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    testCompile "org.specs2:specs2_2.10:2.3.10"
+    // Scala
+    compile("org.scala-lang:scala-library:${scalaVersion}")
+    // Spark
+    compile("org.apache.spark:spark-core_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-mllib_2.10:${sparkVersion}")
+    // Hadoop
+    compile("org.apache.hadoop:hadoop-client:${hadoopVersion}")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
