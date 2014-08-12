@@ -1,0 +1,62 @@
+def versionOverrides = [
+        "org.apache.hadoop:hadoop-yarn-api": "${hadoopVersion}",
+        "org.apache.hadoop:hadoop-yarn-common": "${hadoopVersion}",
+        "org.apache.hadoop:hadoop-yarn-server-web-proxy" : "${hadoopVersion}"
+]
+
+configurations.all {
+
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+
+        def overrideVersion = versionOverrides[details.requested.group + ":" + details.requested.name]
+
+        if (overrideVersion != null && details.requested.version != overrideVersion) {
+            logger.info "Overriding dependency ${details.requested.group}:${details.requested.name} version ${details.requested.version} --> $overrideVersion"
+            details.useVersion overrideVersion
+        }
+    }
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    testCompile "org.specs2:specs2_2.10:2.3.10"
+    // Scala
+    compile("org.scala-lang:scala-library:${scalaVersion}")
+    // Spark
+    compile("org.apache.spark:spark-core_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-yarn_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-mllib_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-bagel_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-repl_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-streaming_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-graphx_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-sql_2.10:${sparkVersion}")
+    // Hadoop
+    compile("org.apache.hadoop:hadoop-client:${hadoopVersion}")
+}
+
+tasks.withType(Zip) {
+    zip64 = true
+}
+
+jar {
+    baseName = 'spark-submit-runner'
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+        exclude "META-INF/*LICENSE*"
+        exclude "META-INF/*license*"
+        exclude "META-INF/license/**"
+        exclude "META-INF/license"
+        exclude "META-INF/NOTICE"
+        exclude "META-INF/DEPENDENCIES"
+        exclude "*LICENSE*"
+        exclude "reference.conf"
+    }
+
+    manifest {
+        attributes 'Main-Class': 'com.sequenceiq.spark.SparkRunner', 'Implementation-Title':'spark-submit-runner', 'Implementation-Version': version
+    }
+}
+

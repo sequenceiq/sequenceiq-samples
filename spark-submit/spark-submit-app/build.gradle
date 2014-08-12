@@ -1,0 +1,11 @@
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    testCompile "org.specs2:specs2_2.10:2.3.10"
+    // Scala
+    compile("org.scala-lang:scala-library:${scalaVersion}")
+    // Spark
+    compile("org.apache.spark:spark-core_2.10:${sparkVersion}")
+    compile("org.apache.spark:spark-mllib_2.10:${sparkVersion}")
+    // Hadoop
+    compile("org.apache.hadoop:hadoop-client:${hadoopVersion}")
+}

@@ -1,0 +1,25 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'scala'
+    version = '1.0'
+    group = 'com.sequenceiq'
+    repositories{
+        mavenCentral()
+        maven { url "https://repository.cloudera.com/artifactory/cloudera-repos/" }
+    }
+
+    tasks.withType(ScalaCompile) {
+        targetCompatibility = 1.7
+        scalaCompileOptions.deprecation = false
+        scalaCompileOptions.unchecked = false
+        scalaCompileOptions.additionalParameters = ['-nowarn']
+        options.warnings = false
+        options.compilerArgs = ["-Xmax-classfile-name 130"]
+    }
+
+    compileJava {
+        targetCompatibility = 1.7
+    }
+
+}
