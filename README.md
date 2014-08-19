@@ -16,6 +16,8 @@ Where the samples are not covered by a blog entry, we try to make them self expl
 * **yarn-queue-tests** module: [YARN Capacity Scheduler](http://blog.sequenceiq.com/blog/2014/03/14/yarn-capacity-scheduler/)
 * **tez-dag-jobs** module: [Using Mahout with Tez](http://blog.sequenceiq.com/blog/2014/03/31/mahout-on-tez/)
 * **yarn-monitoring-R** module: [Monitoring YARN with R]()
+* **scalding-correlation** module: [Correlation example with Scalding](http://blog.sequenceiq.com/blog/2014/06/23/scalding-correlation-example/)
+* **spark-clustering**[K-means clustering on Spark](http://blog.sequenceiq.com/blog/2014/07/31/spark-mllib/)
 
 Thanks,
 [SequenceIQ](http://sequenceiq.com)
