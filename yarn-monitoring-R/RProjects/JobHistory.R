@@ -54,14 +54,14 @@ getTaskCounters <- function(jobId, historyServer)
 plotMapTasksTimes <- function(job)
 {
 	indices<-which(job$tasks$type=="MAP")
-	plotTasksTimes(job, indices)
+	plotTasksTimesdata(job, indices)
 }
 
 # This function plots lines for each red+ucer horizontally. The horizontal axis is the time in ms
 plotReduceTasksTimes <- function(job)
 {
 	indices<-which(job$tasks$type=="REDUCE")
-	plotTasksTimes(job, indices)
+	plotTasksTimesdata(job, indices)
 }
 
 # This function plots lines for each mapper and reducer horizontally. The horizontal axis is the time in ms
