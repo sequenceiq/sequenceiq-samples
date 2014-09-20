@@ -21,6 +21,7 @@
         <module>tez-dag-jobs</module>
         <module>phoenix-jooq</module>
         <module>groovy-bug</module>
+        <module>tez-topk</module>
     </modules>
 
     <properties>
