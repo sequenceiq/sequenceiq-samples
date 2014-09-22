@@ -1,11 +1,10 @@
 package com.sequenceiq.spark.job
 
-import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
 class CustomCorrelationJob extends CorrelationJob {
 
-  override def computeCorrelation(input: RDD[String], context: SparkContext) : Array[(Int, Int, Double)] = {
+  override def computeCorrelation(input: RDD[String]) : Array[(Int, Int, Double)] = {
     val numbersInput = input
       .map(line => line.split(",").map(_.toDouble))
       .cache()

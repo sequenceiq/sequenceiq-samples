@@ -17,8 +17,8 @@ object Main {
 
     val textInput = context.textFile(input)
 
-    val customResult = new CustomCorrelationJob().computeCorrelation(textInput, context)
-    val statResult = new StatsCorrelationJob().computeCorrelation(textInput, context)
+    val customResult = new CustomCorrelationJob().computeCorrelation(textInput)
+    val statResult = new StatsCorrelationJob().computeCorrelation(textInput)
 
     println(customResult)
     println(statResult)

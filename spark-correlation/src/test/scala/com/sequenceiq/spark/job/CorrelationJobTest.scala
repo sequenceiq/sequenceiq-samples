@@ -19,19 +19,19 @@ class CorrelationJobTest extends SparkJobSpec {
 
     "case 1 : return with correct output (custom spark correlation)" in {
       val inputRDD = sc.parallelize(input)
-      val customCorr = new CustomCorrelationJob().computeCorrelation(inputRDD, sc)
+      val customCorr = new CustomCorrelationJob().computeCorrelation(inputRDD)
       customCorr must_== correctOutput
     }
     "case 2: return with correct output (stats spark correlation)" in {
       val inputRDD = sc.parallelize(input)
-      val statCorr = new StatsCorrelationJob().computeCorrelation(inputRDD, sc)
+      val statCorr = new StatsCorrelationJob().computeCorrelation(inputRDD)
       statCorr must_== correctOutput
     }
 
     "case 3: equal with each other" in {
       val inputRDD = sc.parallelize(input)
-      val statCorr = new StatsCorrelationJob().computeCorrelation(inputRDD, sc)
-      val customCorr = new CustomCorrelationJob().computeCorrelation(inputRDD, sc)
+      val statCorr = new StatsCorrelationJob().computeCorrelation(inputRDD)
+      val customCorr = new CustomCorrelationJob().computeCorrelation(inputRDD)
       statCorr must_== customCorr
     }
 
