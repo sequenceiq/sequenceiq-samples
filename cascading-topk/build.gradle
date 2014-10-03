@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+version = '1.0'
+
+repositories{
+    maven { url "http://conjars.org/repo/" }
+    mavenCentral()
+}
+
+compileJava {
+    targetCompatibility = 1.7
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    // Hadoop
+    compile("org.apache.hadoop:hadoop-hdfs:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-common:${hadoopVersion}")
+    compile("org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopVersion}")
+
+    // Tez
+    compile("org.apache.tez:tez-mapreduce:${tezVersion}")
+    compile("org.apache.tez:tez-api:${tezVersion}")
+    compile("org.apache.tez:tez-dag:${tezVersion}")
+
+    // Cascading
+    compile( "cascading:cascading-core:${cascadingVersion}")
+    compile( "cascading:cascading-local:${cascadingVersion}" )
+    compile( "cascading:cascading-hadoop:${cascadingVersion}" )
+    compile( "cascading:cascading-hadoop2-tez:${cascadingVersion}" )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
