@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'war'
 version = '1.0'
 
 repositories{
@@ -11,6 +10,8 @@ repositories{
 compileJava {
     targetCompatibility = 1.7
 }
+
+configurations { providedCompile }
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
@@ -31,8 +32,11 @@ dependencies {
     compile( "cascading:cascading-hadoop2-tez:${cascadingVersion}" )
 }
 
+sourceSets.main.compileClasspath += configurations.providedCompile
+sourceSets.test.compileClasspath += configurations.providedCompile
+sourceSets.test.runtimeClasspath += configurations.providedCompile
+
 jar {
-    description = "Assembles a Hadoop ready jar file"
     doFirst {
         into( 'lib' ) {
             from configurations.compile

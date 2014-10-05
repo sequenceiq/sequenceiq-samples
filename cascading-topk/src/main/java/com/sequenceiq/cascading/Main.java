@@ -29,26 +29,29 @@ public class Main {
                 .buildProperties();
 
         properties = FlowRuntimeProps.flowRuntimeProps()
-                .setGatherPartitions(4)
+                .setGatherPartitions(1)
                 .buildProperties(properties);
 
         FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
 
         final String inputPath = args[0];
         final String outputPath = args[1];
+        final int top = Integer.parseInt(args[2]);
 
-        final Fields fields = new Fields("userId", "fruit", "data1", "data2");
+        final Fields fields = new Fields("userId", "data1", "data2", "data3");
         final Scheme scheme = new TextDelimited(fields, false, true, ",");
 
         final Pipe inPipe = new Pipe("inPipe");
         final Tap inTap = new Hfs(scheme, inputPath);
-        // Get TOP K by userId
-        Pipe topUsersPipe = new GroupBy("topUsers", inPipe, new Fields("userId"));
-        topUsersPipe = new Every(topUsersPipe, new Fields("userId"), new Count(), Fields.ALL);
-        topUsersPipe = new GroupBy(topUsersPipe, new Fields("userId"), new Fields("count"), true);
-        topUsersPipe = new Every(topUsersPipe, Fields.RESULTS, new FirstNBuffer(20));
+        final Fields groupFields = new Fields("userId");
 
-        final Scheme outputScheme = new TextDelimited(new Fields("userId", "count"), false, true, ",");
+        Pipe topUsersPipe = new GroupBy("topUsers", inPipe, groupFields);
+        topUsersPipe = new Every(topUsersPipe, groupFields, new Count(), Fields.ALL);
+        topUsersPipe = new GroupBy(topUsersPipe, Fields.NONE, new Fields("count", "userId"), true);
+        topUsersPipe = new Every(topUsersPipe, Fields.ALL, new FirstNBuffer(top), Fields.ARGS);
+
+        final Fields resultFields = new Fields("userId", "count");
+        final Scheme outputScheme = new TextDelimited(resultFields, false, true, ",");
         Tap sinkTap = new Hfs(outputScheme, outputPath);
 
         FlowDef flowDef = FlowDef.flowDef()
