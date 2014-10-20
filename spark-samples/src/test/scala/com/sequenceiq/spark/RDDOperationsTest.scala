@@ -296,7 +296,7 @@ class RDDOperationsTest {
     val input = Seq(1 ,2 ,3, 4)
     val expectedOutput = Array(Array(1, 2, 3, 4))
 
-    val output = sc.makeRDD(input, 2).coalesce(1)
+    val output = sc.makeRDD(input, 2).coalesce(1) //coalesce(2, shuffle = true) == repartition(2)
 
     Assert.assertEquals(output.glom().collect(), expectedOutput)
 
