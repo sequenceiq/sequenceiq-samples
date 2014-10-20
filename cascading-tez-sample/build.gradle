@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+version = '1.0'
+
+repositories{
+    maven { url "http://conjars.org/repo/" }
+    mavenCentral()
+}
+
+compileJava {
+    targetCompatibility = 1.7
+}
+
+configurations { providedCompile }
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    // Hadoop
+    providedCompile("org.apache.hadoop:hadoop-hdfs:${hadoopVersion}")
+    providedCompile("org.apache.hadoop:hadoop-common:${hadoopVersion}")
+    providedCompile("org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopVersion}")
+
+    // Tez
+    providedCompile("org.apache.tez:tez-mapreduce:${tezVersion}")
+    providedCompile("org.apache.tez:tez-api:${tezVersion}")
+    providedCompile("org.apache.tez:tez-dag:${tezVersion}")
+
+    // Cascading
+    compile( "cascading:cascading-core:${cascadingVersion}")
+    compile( "cascading:cascading-hadoop2-tez:${cascadingVersion}" )
+}
+
+sourceSets.main.compileClasspath += configurations.providedCompile
+sourceSets.test.compileClasspath += configurations.providedCompile
+sourceSets.test.runtimeClasspath += configurations.providedCompile
+
+jar {
+    doFirst {
+        into( 'lib' ) {
+            from configurations.compile
+        }
+    }
+
+    manifest {
+        attributes( "Main-Class": "com.sequenceiq.cascading.Main" )
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
