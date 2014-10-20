@@ -48,7 +48,7 @@ public class Main {
         Pipe usersPipe = new GroupBy("usersWithCount", inPipe, groupFields);
         usersPipe = new Every(usersPipe, groupFields, new Count(), Fields.ALL);
         usersPipe = new GroupBy(usersPipe, Fields.NONE, new Fields("count", "userId"), true);
-        usersPipe = new Each(usersPipe, new RegexFilter( "[2-9][0-9]*" ));
+        usersPipe = new Each(usersPipe, new Fields("count"), new RegexFilter( "^(?:[2-9]|(?:[1-9][0-9]+))" ));
 
         final Fields resultFields = new Fields("userId", "count");
         final Scheme outputScheme = new TextDelimited(resultFields, false, true, ",");
