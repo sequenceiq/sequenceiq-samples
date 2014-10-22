@@ -134,6 +134,16 @@ class RDDOperationsTest {
   }
 
   @Test
+  def testFold() {
+    val input = Seq(1, 2, 3, 4)
+    val expectedOutput = 10
+
+    val output = sc.makeRDD(input).fold(0)((n,m) => n + m)
+
+    Assert.assertEquals(output, expectedOutput)
+  }
+
+  @Test
   def testGroupBy() {
     val input = Seq((1, 1), (1, 2), (1, 3), (2, 4))
     val expectedOutput = Array(
@@ -386,7 +396,7 @@ class RDDOperationsTest {
     val input = Seq((1, 2), (1, 3), (2, 4))
     val expectedOutput = Array((1,7), (2, 6))
 
-    val output = sc.makeRDD(input).foldByKey(2)(_ + _)
+    val output = sc.makeRDD(input).foldByKey(0)(_ + _)
 
     Assert.assertEquals(output.collect(), expectedOutput)
   }
