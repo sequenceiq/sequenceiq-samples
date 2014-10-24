@@ -26,9 +26,6 @@ dependencies {
     providedCompile("org.apache.tez:tez-dag:${tezVersion}")
 
     // Cascading
-    compile( "cascading:cascading-core:${cascadingVersion}")
-    compile( "cascading:cascading-local:${cascadingVersion}" )
-    compile( "cascading:cascading-hadoop:${cascadingVersion}" )
     compile( "cascading:cascading-hadoop2-tez:${cascadingVersion}" )
 }
 
