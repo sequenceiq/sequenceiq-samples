@@ -1,0 +1,70 @@
+{
+  "configurations": [
+    {
+      "global": {
+        "nagios_contact": "",
+        "fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem",
+        "fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS",
+        "fs.gs.project.id":"${GOOGLE_PROJECT_ID}",
+        "google.cloud.auth.service.account.enable":true,
+        "google.cloud.auth.service.account.email":"${GOOGLE_SERVICE_ACCOUNT_EMAIL}",
+        "google.cloud.auth.service.account.keyfile":"${PATH_OF_THE_GOOGLE_SERVICE_ACCOUNT_P12_KEY_FILE}"
+      }
+    }
+  ],
+  "host_groups": [
+    {
+      "name": "master",
+      "components": [
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "NAGIOS_SERVER"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "slave_1",
+      "components": [
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        }
+      ],
+      "cardinality": "2"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "multi-node-hdfs-yarn",
+    "stack_name": "HDP",
+    "stack_version": "2.1"
+  }
+}
