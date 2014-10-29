@@ -3,6 +3,10 @@
     {
       "global": {
         "nagios_contact": "",
+      }
+    },
+    {
+      "core-site": {
         "fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem",
         "fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS",
         "fs.gs.project.id":"${GOOGLE_PROJECT_ID}",
