@@ -20,18 +20,12 @@ cpResources() {
       -o UserKnownHostsFile=/dev/null \
       -o LogLevel=QUIET \
       -i $PRIVATE_KEY_PATH \
-  $P12_KEY_FILE ubuntu@$actualip:/tmp/$P12_KEY_FILE
+  $P12_KEY_FILE copyscripts.sh ubuntu@$actualip:/tmp
 
-  scp -o StrictHostKeyChecking=no \
+  ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
       -o LogLevel=QUIET \
       -i $PRIVATE_KEY_PATH \
-    copyscripts.sh ubuntu@$actualip:/tmp/copyscripts.sh
-
-ssh -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null \
-    -o LogLevel=QUIET \
-    -i $PRIVATE_KEY_PATH \
   ubuntu@$actualip "chmod +x /tmp/copyscripts.sh && sudo /tmp/copyscripts.sh"
 
 }
