@@ -27,10 +27,10 @@
           "name": "HISTORYSERVER"
         },
         {
-          "name": "APP_TIMELINE_SERVER"
+          "name": "ZOOKEEPER_SERVER"
         },
         {
-          "name": "ZOOKEEPER_SERVER"
+          "name": "APP_TIMELINE_SERVER"
         }
       ],
       "cardinality": "1"
