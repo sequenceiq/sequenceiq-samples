@@ -1,0 +1,71 @@
+{
+  "configurations": [
+    {
+        "yarn-site": {
+            "yarn.timeline-service.generic-application-history.enabled" : "true",
+            "yarn.timeline-service.generic-application-history.store-class" : "org.apache.hadoop.yarn.server.applicationhistoryservice.FileSystemApplicationHistoryStore"
+        }
+    }
+  ],
+  "host_groups": [
+    {
+      "name": "master",
+      "components": [
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+        "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "slave",
+      "components": [
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        }
+      ],
+      "cardinality": "2"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "multi-node-hdfs-yarn-tez-timeline-service",
+    "stack_name": "HDP",
+    "stack_version": "2.1"
+  }
+}
