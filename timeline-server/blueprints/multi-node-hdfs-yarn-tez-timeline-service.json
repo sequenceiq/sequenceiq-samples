@@ -3,7 +3,8 @@
     {
         "yarn-site": {
             "yarn.timeline-service.generic-application-history.enabled" : "true",
-            "yarn.timeline-service.generic-application-history.store-class" : "org.apache.hadoop.yarn.server.applicationhistoryservice.FileSystemApplicationHistoryStore"
+            "yarn.timeline-service.generic-application-history.store-class" : "org.apache.hadoop.yarn.server.applicationhistoryservice.FileSystemApplicationHistoryStore",
+            "yarn.timeline-service.generic-application-history.fs-history-store.uri" : "/app-logs/yarn/system/history"
         }
     }
   ],
