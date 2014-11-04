@@ -273,8 +273,8 @@ public class TopK extends Configured implements Tool {
             while (kvReader.next()) {
                 Text currentWord = (Text) kvReader.getCurrentKey();
                 int sum = 0;
-                for (Object value : kvReader.getCurrentValues()) {
-                    sum += ((IntWritable) value).get();
+                for (Object val : kvReader.getCurrentValues()) {
+                    sum += ((IntWritable) val).get();
                 }
                 localTop.store(sum, currentWord.toString());
             }
@@ -366,20 +366,11 @@ public class TopK extends Configured implements Tool {
                     localTopK.put(value, new ArrayList<String>(singletonList(word)));
                 } else {
                     // see if bigger than the existing tops
-                    boolean removeLowest = false;
-                    for (int localTop : localTopK.keySet()) {
-                        if (localTop > value) {
-                            break;
-                        } else {
-                            localTopK.put(value, new ArrayList<String>(singletonList(word)));
-                            removeLowest = true;
-                            break;
-                        }
-                    }
-                    if (removeLowest) {
-                        Iterator<Integer> iterator = localTopK.keySet().iterator();
-                        iterator.next();
+                    Iterator<Integer> iterator = localTopK.keySet().iterator();
+                    int lowest = iterator.next();
+                    if (lowest < value) {
                         iterator.remove();
+                        localTopK.put(value, new ArrayList<String>(singletonList(word)));
                     }
                 }
             } else {
