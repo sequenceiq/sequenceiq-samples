@@ -8,9 +8,10 @@ object TopKMain {
   import org.apache.spark.SparkContext._
   def main(args: Array[String]) {
     val input = args(0)
-    val top = args(1)
+    val out = args(1)
+    val top = args(2)
     val storageLevel = args.length match {
-      case 3 => args(2)
+      case 4 => args(3)
       case _ => "none"
     }
 
@@ -28,6 +29,8 @@ object TopKMain {
       .top(top.toInt)
 
     result.foreach{case (number, value) => println (value + " : " + number)}
+
+    sc.parallelize(result, 1).saveAsTextFile(out)
 
 
 
