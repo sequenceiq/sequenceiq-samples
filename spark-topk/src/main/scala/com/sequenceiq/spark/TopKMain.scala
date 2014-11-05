@@ -32,8 +32,7 @@ object TopKMain {
 
     sc.parallelize(result, 1).saveAsTextFile(out)
 
-
-
+    sc.stop()
   }
 
   def doPersist(rdd: RDD[Array[String]], level: String): RDD[Array[String]] = {
