@@ -1,0 +1,16 @@
+title Downscaling
+
+Periscope->ResourceManager: GET metrics
+note right of ResourceManager: 10% load on queues
+ResourceManager->Periscope: Queue and App metrics
+Periscope->Periscope: Check metric alarms
+note right of Periscope: Memory usage alarm triggers
+Periscope->Cloudbreak: Decommission 10 nodes
+Cloudbreak->ResourceManager: GET running apps
+Cloudbreak->Cloudbreak: Filter nodes with AMs
+Cloudbreak->Cloudbreak: Filter nodes with master services
+Cloudbreak->Ambari: Decommission 10 nodes
+Ambari->Cloudbreak: Successful decommission
+Cloudbreak->Periscope: Successful decommission
+Periscope->Cloudbreak: Terminate 10 nodes
+Cloudbreak->"AWS/GCC/AZURE": Terminate 10 nodes
