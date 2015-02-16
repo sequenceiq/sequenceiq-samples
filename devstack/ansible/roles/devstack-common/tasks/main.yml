@@ -1,0 +1,34 @@
+---
+- name: Install git
+  apt: name=git state=latest
+  sudo: true
+
+- name: get iptables rules
+  shell: iptables -t nat -L -n
+  register: iptablesrules
+  always_run: yes
+  sudo: true
+
+- name: iptables rule to access external network by VMs
+  command: sudo iptables -t nat -A POSTROUTING -o {{ devstack_nat_if }} -j MASQUERADE -m comment --comment "DevstackExt"
+  sudo: true
+  when: iptablesrules.stdout.find("DevstackExt") == -1
+
+#- name: save iptables
+#  command: iptables-save
+#  sudo: true
+
+#- name: restart iptables
+#  service: name=ufw state=restarted
+#  sudo: true
+
+- name: Creates directory for openstack
+  file: path=/opt/stack state=directory owner={{ devstack_user|mandatory }} group={{ devstack_group|mandatory }}
+  sudo: true
+
+- name: Creates directory
+  file: path=/opt/stack state=directory owner={{ devstack_user|mandatory }} group={{ devstack_group|mandatory }}
+  sudo: true
+
+- name: Cloning devstack repo
+  git: repo=git://github.com/openstack-dev/devstack.git dest=/opt/stack/devstack accept_hostkey=yes version={{ devstack_version|mandatory }}

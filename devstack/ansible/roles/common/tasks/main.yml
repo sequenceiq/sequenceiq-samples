@@ -1,0 +1,16 @@
+---
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt: update_cache=yes
+  sudo: true
+  
+- name: Update all packages to the latest version
+  apt: upgrade=dist
+  sudo: true
+
+- name: Generate SSH keys
+  user: name={{ devstack_user }} generate_ssh_key=yes ssh_key_bits=2048
+  sudo: true
+
+- name: Install sysstat
+  apt: name=sysstat state=latest
+  sudo: true

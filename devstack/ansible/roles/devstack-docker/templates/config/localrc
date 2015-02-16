@@ -1,0 +1,47 @@
+DEST=/opt/stack
+
+# Logging
+LOGFILE=$DEST/logs/stack.sh.log
+VERBOSE=True
+LOG_COLOR=False
+SCREEN_LOGDIR=$DEST/logs/screen
+
+# Credentials
+ADMIN_PASSWORD={{ devstack_password }}
+MYSQL_PASSWORD={{ devstack_password }}
+RABBIT_PASSWORD={{ devstack_password }}
+SERVICE_PASSWORD={{ devstack_password }}
+SERVICE_TOKEN={{ devstack_token }}
+
+GLANCE_BRANCH={{ devstack_version }}
+HORIZON_BRANCH={{ devstack_version }}
+KEYSTONE_BRANCH={{ devstack_version }}
+NOVA_BRANCH={{ devstack_version }}
+NEUTRON_BRANCH={{ devstack_version }}
+HEAT_BRANCH={{ devstack_version }}
+CEILOMETER_BRANCH={{ devstack_version }}
+
+HOST_IP={{ devstack_host_ip }}
+
+VOLUME_BACKING_FILE_SIZE={{ devstack_vol_backing_size | default('10G') }}
+
+# Neutron - Networking Service
+DISABLED_SERVICES=n-net
+ENABLED_SERVICES+=,q-svc,q-agt,q-dhcp,q-l3,q-meta,q-metering,neutron
+
+# Neutron - Load Balancing
+ENABLED_SERVICES+=,q-lbaas
+
+# Heat - Orchestration Service
+ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng
+#HEAT_STANDALONE=True
+
+# Ceilometer - Metering Service (metering + alarming)
+ENABLED_SERVICES+=,ceilometer-acompute,ceilometer-acentral,ceilometer-collector,ceilometer-api
+ENABLED_SERVICES+=,ceilometer-alarm-notify,ceilometer-alarm-eval
+
+# Swift object store
+ENABLED_SERVICES+=,s-proxy,s-account,s-object,s-container
+SWIFT_HASH=66a3d6b56c1f479c8b4e70ab5c2000f5
+SWIFT_REPLICAS=1
+

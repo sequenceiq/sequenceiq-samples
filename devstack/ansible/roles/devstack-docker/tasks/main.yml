@@ -1,0 +1,36 @@
+---
+- name: Cloning nova docker repo
+  git: repo=git://github.com/stackforge/nova-docker.git dest=/opt/stack/nova-docker accept_hostkey=yes version={{ devstack_version|mandatory }}
+
+- name: Copy and filter localrc config file
+  template: src=config/localrc dest=/opt/stack/devstack/localrc
+  
+- name: Copy and filter local.conf config file
+  template: src=config/local.conf dest=/opt/stack/devstack/local.conf
+
+- name: Setup nova docker
+  shell: ./contrib/devstack/prepare_devstack.sh chdir=/opt/stack/nova-docker
+  
+- name: Install pip
+  apt: name=python-pip state=latest
+  sudo: true
+
+- name: Install python-all-dev
+  apt: name=python-all-dev state=latest
+  sudo: true
+
+- name: Install setuptools
+  pip: name=setuptools state=latest
+  sudo: true
+
+- name: Install pbr
+  pip: name=pbr state=latest
+  sudo: true
+  
+  
+- name: Install nova docker driver
+  command: python setup.py install chdir=/opt/stack/nova-docker creates=/opt/stack/nova_docker_installed
+  sudo: true
+
+- name: Install devstack
+  shell: ./stack.sh chdir=/opt/stack/devstack creates=/opt/stack/devstack_installed

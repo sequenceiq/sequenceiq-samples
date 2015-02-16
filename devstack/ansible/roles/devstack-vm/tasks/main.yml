@@ -1,0 +1,9 @@
+---
+- name: Copy and filter localrc config file
+  template: src=config/localrc dest=/opt/stack/devstack/localrc
+
+- name: Copy and filter local.conf config file
+  template: src=config/local.conf dest=/opt/stack/devstack/local.conf
+
+- name: Install devstack
+  shell: ./stack.sh chdir=/opt/stack/devstack creates=/opt/stack/devstack_installed

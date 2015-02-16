@@ -1,0 +1,2 @@
+[local-kvm]
+IP_OF_MACHINE ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/KEY_TO_MACHINE.pem
