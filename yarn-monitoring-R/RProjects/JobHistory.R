@@ -82,14 +82,14 @@ plotTasksTimesdata <- function(job, indices=1:length(job$tasks$startTime))
 # This function plots the number of active mappers at every time point when this number changes
 plotActiveMappersNumdata <- function(job, replot=FALSE, minTime=NULL)
 {
-	nums <- getActiveTasksNum(job, which(job$tasks$type=="MAP", minTime))
+	nums <- getActiveTasksNumdata(job, which(job$tasks$type=="MAP", minTime))
 	plotActiveTasksNum(nums, replot=replot)
 }
 
 # This function plots the number of active reducers at every time point when this number changes
 plotActiveReducersNumdata <- function(job, replot=FALSE, minTime=NULL)
 {
-	nums <- getActiveTasksNum(job, which(job$tasks$type=="REDUCE"), minTime)
+	nums <- getActiveTasksNumdata(job, which(job$tasks$type=="REDUCE"), minTime)
 	plotActiveTasksNum(nums, replot=replot)
 
 }
@@ -121,7 +121,7 @@ getActiveMergePhaseReducerNumdata <- function(job, minTime=NULL)
 	nums
 }
 # This function return the number of active reducers in merge at every time point when this number changes
-getActiveReducePhaseReducerNumdata <- function(job, minTime=NULL)
+getActiveReducePhaseReducerNumdatadata <- function(job, minTime=NULL)
 {
 	indices<-which(job$tasks$type=="REDUCE")
 	times<-rbind(cbind(job$attempts$mergeFinishTime,rep(1,length(job$attempts$mergeFinishTime))),
@@ -141,10 +141,10 @@ plotActiveMRTasksNumdata <- function(job, relative=TRUE)
 	else
 		offset<-0
 
-	numsM <- getActiveTasksNum(job, which(job$tasks$type=="MAP"),offset)
-	numsSP <- getActiveShufflePhaseReducerNum(job, offset)
-	numsMP <- getActiveMergePhaseReducerNum(job, offset)
-	numsRP <- getActiveReducePhaseReducerNum(job, offset)
+	numsM <- getActiveTasksNumdata(job, which(job$tasks$type=="MAP"),offset)
+	numsSP <- getActiveShufflePhaseReducerNumdata(job, offset)
+	numsMP <- getActiveMergePhaseReducerNumdata(job, offset)
+	numsRP <- getActiveReducePhaseReducerNumdata(job, offset)
 
 	yrange<-range(c(numsM[,2], numsSP[,2], numsMP[,2], numsRP[,2]))
 	xrange<-range(c(numsM[,1], numsSP[,1], numsMP[,1], numsRP[,1]))
@@ -164,9 +164,9 @@ plotActiveReduceTasksNumDetaileddata <- function(job, relative=TRUE)
 	}
 	else
 		offset<-0
-	numsSP <- getActiveShufflePhaseReducerNum(job, offset )
-	numsMP <- getActiveMergePhaseReducerNum(job, offset )
-	numsRP <- getActiveReducePhaseReducerNum(job, offset )
+	numsSP <- getActiveShufflePhaseReducerNumdata(job, offset )
+	numsMP <- getActiveMergePhaseReducerNumdata(job, offset )
+	numsRP <- getActiveReducePhaseReducerNumdata(job, offset )
 	yrange<-range(c(numsSP[,2], numsMP[,2], numsRP[,2]))
 	xrange<-range(c(numsSP[,1], numsMP[,1], numsRP[,1]))
 	plotActiveTasksNum(numsSP, replot=FALSE, col="darkorange", xlim=xrange, ylim=yrange)

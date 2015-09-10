@@ -85,19 +85,19 @@ Which is the same as:
 ## The R generated graphs
 The are two types of graphs for the beginning
 
-`plotTasksTimes(job)`
+`plotTasksTimesdata(job)`
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/yarn-monitoring-R/images/48_mappers_20_reducers_mr_task_times.png)
 
 This graph shows start and finish times for each tasks (mappers and reducers as well). The tasks are sorted by their start times, so the reducers are on the top. There are 48 mappers and 20 reducers. The times are relative to the startTime of the first mapper in milliseconds(could show absolute values as well).
 
-`plotActiveMRTasksNum(job)`
+`plotActiveMRTasksNumdata(job)`
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/yarn-monitoring-R/images/48_mappers_20_reducers_mr.png)
 
 The graph above contains the number of active tasks at each time. It shows the mappers with green and also show the reduce phases as well. The shuffle part is orange, the merge part is magenta and the reduce part (reducer function is running) is blue. The times are relative to the startTime of the first mapper in milliseconds (could show absolute values as well).
 
-`plotActiveReduceTasksNumDetailed(job, FALSE)`
+`plotActiveReduceTasksNumDetaileddata(job, FALSE)`
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/yarn-monitoring-R/images/48_mappers_20_reducers_reduce_phases.png)
 
