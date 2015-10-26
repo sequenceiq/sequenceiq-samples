@@ -121,7 +121,7 @@ getActiveMergePhaseReducerNumdata <- function(job, minTime=NULL)
 	nums
 }
 # This function return the number of active reducers in merge at every time point when this number changes
-getActiveReducePhaseReducerNumdatadata <- function(job, minTime=NULL)
+getActiveReducePhaseReducerNumdata <- function(job, minTime=NULL)
 {
 	indices<-which(job$tasks$type=="REDUCE")
 	times<-rbind(cbind(job$attempts$mergeFinishTime,rep(1,length(job$attempts$mergeFinishTime))),
